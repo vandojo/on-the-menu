@@ -1,5 +1,7 @@
 import {useState} from "react";
 
+import {Logo} from "./components/logo";
+
 export function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -12,12 +14,7 @@ export function Navbar() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-7">
-            <a
-              href="https://github.com/vandojo/on-the-menu"
-              className="flex items-center py-4 px-2 hover:text-gray-700"
-            >
-              VanDoJo
-            </a>
+            <Logo />
             <div className="relative py-4 px-2 inline-block text-left">
               <div>
                 <button
@@ -45,7 +42,7 @@ export function Navbar() {
               </div>
               <div
                 className={
-                  "absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none " +
+                  "absolute right-0 z-10 mt-2 dark:bg-indigo-400  w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none " +
                   (openMenu
                     ? " transition ease-out "
                     : " transition ease-in ") +
@@ -63,7 +60,7 @@ export function Navbar() {
                 <div className="py-1 " role="none">
                   <a
                     href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
+                    className="text-gray-700 hover:bg-indigo-500 mt-0 block px-4 py-2 text-sm"
                     role="menuitem"
                     tabIndex="-1"
                     id="menu-item-0"
@@ -72,7 +69,7 @@ export function Navbar() {
                   </a>
                   <a
                     href="#"
-                    className="text-gray-700 block px-4 py-2 text-sm"
+                    className="text-gray-700 hover:bg-indigo-500 block px-4 py-2 text-sm"
                     role="menuitem"
                     tabIndex="-1"
                     id="menu-item-1"
@@ -83,7 +80,7 @@ export function Navbar() {
                   <form method="POST" action="#" role="none">
                     <button
                       type="submit"
-                      className="text-gray-700 block w-full px-4 py-3 text-left text-sm"
+                      className="text-gray-700 block hover:bg-indigo-500 w-full px-4 py-3 text-left text-sm"
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-3"

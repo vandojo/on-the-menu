@@ -46,8 +46,9 @@ export function Form() {
           <select
             id="meals"
             placeholder="Meal"
+            name="mealtypes"
             multiple
-            className="bg-orange-600 border p-0  border-gray-300 text-gray-900 text-sm rounded-lg  block w-full dark:bg-orange-600 dark:border-gray-600  dark:text-gray-900 font-semibold "
+            className="bg-orange-600 border p-0 font-sans  border-gray-300 text-gray-900 text-sm rounded-lg  block w-full dark:bg-orange-600 dark:border-gray-600  dark:text-gray-900 font-semibold "
           >
             <option className="hover:bg-orange-400  hover:rounded focus:bg-orange-400">
               Pick a meal
