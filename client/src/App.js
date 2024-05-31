@@ -1,5 +1,5 @@
 import {Navbar} from "./components/navbar/nav";
-import {Form} from "./components/recipeform";
+import {Form} from "./components/form/recipeform";
 
 import "./App.css";
 
