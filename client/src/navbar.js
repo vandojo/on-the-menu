@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-import {Logo} from "./components/logo";
+import {Logo} from "./components/navbar/logo";
 
 export function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
