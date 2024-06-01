@@ -24,6 +24,15 @@ app.get("/api", async (req, res) => {
   });
 });
 
+app.post("/search_recipes", async (req, res) => {
+  let params = req.body;
+  //console.log(params);
+  edamam.formatURL(params);
+  edamam.makeRequest().then((data) => {
+    res.json({message: data.hits});
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`server listening on ${PORT}`);
 });

@@ -1,14 +1,15 @@
 import {Dropdowns} from "./dropdowns";
 import {SubmitButton} from "./submitbutton";
 import {InputBar} from "./inputbar";
-export function Form() {
+
+export function Form({searchrecipes}) {
   const selectItems = [
     {
       items: ["Breakfast", "Lunch", "Dinner", "Snack"],
       placeholder: "Meal",
       id: "meal_menu",
       txt: "Meal",
-      name: "mealTypes",
+      name: "mealType",
     },
 
     {
@@ -43,7 +44,7 @@ export function Form() {
       placeholder: "Health",
       id: "health_menu",
       txt: "Dietary preferences",
-      name: "health",
+      name: "healthLabels",
     },
 
     {
@@ -73,6 +74,15 @@ export function Form() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formVals = Object.fromEntries(formData);
+
+    // remove empty strings from the form data
+    const filteredData = Object.entries(formVals).filter(
+      ([key, val]) => val !== ""
+    );
+    const data = Object.fromEntries(filteredData);
+    console.log(data);
+
+    searchrecipes(data);
   };
   return (
     <section className="bg-gray-900">
@@ -86,8 +96,8 @@ export function Form() {
             <form
               className="space-y-4 md:space-y-6"
               onSubmit={handleSubmit}
-              action="#"
-              method="get"
+              action="/search_recipes"
+              method="post"
             >
               <InputBar
                 idname={"searchbar"}
