@@ -1,4 +1,4 @@
-export function LoginForm() {
+export function LoginForm({register_page_route}) {
   return (
     <section className="gray-50 bg-gray-900">
       <div className="flex flex-col items-center jusitfy-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -71,7 +71,7 @@ export function LoginForm() {
                   </div>
                 </div>
                 <a
-                  href="#"
+                  href="/search"
                   className="text-sm font-medium text-white hover:underline"
                 >
                   Forgot password
@@ -86,7 +86,7 @@ export function LoginForm() {
               <p className="text-sm font-light text-gray-400">
                 Don’t have an account yet?{" "}
                 <a
-                  href="#"
+                  href={register_page_route}
                   className="font-medium  hover:underline text-fuchsia-500"
                 >
                   Sign up

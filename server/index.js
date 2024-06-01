@@ -14,19 +14,19 @@ app.use(bodyParser.json());
 
 app.get("/api", async (req, res) => {
   let params = {
-    q: "chicken",
+    mealType: "Lunch",
   };
 
   edamam.formatURL(params);
 
   edamam.makeRequest().then((data) => {
-    res.json({message: data.hits[0].recipe});
+    res.json({message: data.hits});
   });
 });
 
 app.post("/search_recipes", async (req, res) => {
   let params = req.body;
-  //console.log(params);
+
   edamam.formatURL(params);
   edamam.makeRequest().then((data) => {
     res.json({message: data.hits});

@@ -101,7 +101,7 @@ export function Form({searchrecipes}) {
             >
               <InputBar
                 idname={"searchbar"}
-                name={"ingredients"}
+                name={"q"}
                 inputtype={"text"}
                 placeholdertxt={"rice chicken tofu"}
                 labeltxt={"Enter ingredients - separate by a space"}
