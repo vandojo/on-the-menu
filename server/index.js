@@ -2,6 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
+const dbConnect = require("./dbConnect");
+
+dbConnect();
+
 const {Edamam} = require("./edamam");
 
 let edamam = new Edamam(process.env.APP_EDAMAM_KEYS, process.env.APP_EDAMAM_ID);
