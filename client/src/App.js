@@ -22,7 +22,14 @@ function App() {
   const searchRecipes = (data) => {
     RecipesAPI.searchRecipes(data).then((response) => console.log(response));
 
-    //RecipesAPI.fetchRandom().then((response) => console.log(response));
+    //
+  };
+
+  const fetchRandom = () => {
+    let data = RecipesAPI.fetchRandom().then((response) => {
+      return response.message;
+    });
+    return data;
   };
 
   return (
@@ -38,7 +45,7 @@ function App() {
               </>
             }
           >
-            <Route index element={<RecipeOverview />} />
+            <Route index element={<RecipeOverview apimethod={fetchRandom} />} />
             <Route
               path="search"
               element={<Form searchrecipes={searchRecipes} />}

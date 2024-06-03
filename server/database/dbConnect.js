@@ -10,6 +10,7 @@ async function dbConnect() {
     //await listDatabases(client);
     console.log("connection succesful");
   } catch (e) {
+    console.log(e);
     console.error(e);
   } finally {
     await client.close();
