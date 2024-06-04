@@ -1,6 +1,7 @@
 import {Navbar} from "./components/navbar/nav";
 import {Form} from "./components/form/recipeform";
-import {RecipeOverview} from "./components/overview";
+import {Gallery} from "./components/home/gallery";
+//import {RecipeOverview} from "./components/overview";
 
 import {LoginForm} from "./components/loginform";
 import {SignUpForm} from "./components/signupform";
@@ -18,6 +19,8 @@ function App() {
     {name: "Login", link: "/login"},
     {name: "Sign Up", link: "/register"},
   ];
+
+  const mealTypes = ["All", "Breakfast", "Lunch", "Snack", "Dinner"];
 
   const searchRecipes = (data) => {
     RecipesAPI.searchRecipes(data).then((response) => console.log(response));
@@ -45,7 +48,10 @@ function App() {
               </>
             }
           >
-            <Route index element={<RecipeOverview apimethod={fetchRandom} />} />
+            <Route
+              index
+              element={<Gallery items={mealTypes} apimethod={fetchRandom} />}
+            />
             <Route
               path="search"
               element={<Form searchrecipes={searchRecipes} />}
