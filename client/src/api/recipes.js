@@ -1,6 +1,10 @@
 export default class RecipesAPI {
-  static fetchRandom() {
-    return fetch(`http://localhost:3002/api`, {
+  static fetchRandom(params) {
+    const data = new URLSearchParams({
+      mealType: params,
+    });
+
+    return fetch(`http://localhost:3002/api?${data}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

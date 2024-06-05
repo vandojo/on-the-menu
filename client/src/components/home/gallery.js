@@ -44,13 +44,14 @@ export function Gallery({items, apimethod}) {
     </div>
   );
 
-  const getGalleryData = () => {
-    apimethod().then((items) => setGalleryData(items));
+  const getGalleryData = (data) => {
+    apimethod(data).then((items) => setGalleryData(items));
   };
 
   const handleClick = (e) => {
     toggleClass(e);
-    getGalleryData();
+    let val = e.target.id;
+    getGalleryData(val);
   };
 
   const topbar = (

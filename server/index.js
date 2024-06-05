@@ -17,9 +17,19 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get("/api", async (req, res) => {
-  let params = {
-    mealType: "Lunch",
-  };
+  let data = req.query.mealType;
+
+  let params;
+
+  if (data == "All") {
+    params = {
+      mealType: "Breakfast&mealType=Dinner&mealType=Lunch&mealType=Snack",
+    };
+  } else {
+    params = {
+      mealType: data,
+    };
+  }
 
   edamam.formatURL(params);
 

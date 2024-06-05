@@ -28,10 +28,11 @@ function App() {
     //
   };
 
-  const fetchRandom = () => {
-    let data = RecipesAPI.fetchRandom().then((response) => {
+  const fetchRandom = (params) => {
+    let data = RecipesAPI.fetchRandom(params).then((response) => {
       return response.message;
     });
+    //console.log(data);
     return data;
   };
 

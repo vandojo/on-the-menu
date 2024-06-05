@@ -80,7 +80,7 @@ export function Form({searchrecipes}) {
       ([key, val]) => val !== ""
     );
     const data = Object.fromEntries(filteredData);
-    console.log(data);
+    //console.log(data);
 
     searchrecipes(data);
   };
