@@ -1,8 +1,16 @@
 import {useEffect, useState} from "react";
 
+import {Recipe} from "./recipe";
+
 export function Gallery({items, apimethod}) {
   const [galleryData, setGalleryData] = useState([]);
-  const [focusItem, setFocusItem] = useState(null);
+  const [focusItem, setFocusItem] = useState({
+    label: "",
+  });
+
+  useEffect(() => {
+    getGalleryData("All");
+  }, []);
 
   const baseCLs =
     "text-white border hover:text-fuchsia-400 border-gray-900 bg-gray-900 hover:border-fuchsia-400  focus:ring-2 focus:outline-none rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3  focus:ring-fuchsia-500";
@@ -14,16 +22,16 @@ export function Gallery({items, apimethod}) {
     e.target.className = focusCLS;
   };
 
-  const focusElement = (
-    <div className="w-2/5  mr-20 border border-red-400">
-      {focusItem ? focusItem : ""}
-    </div>
-  );
+  // const focusElement = (
+  //   <div className="w-2/5  mr-20 border border-red-400">
+  //     {focusItem ? focusItem : ""}
+  //   </div>
+  // );
 
   const recipeData = (e) => {
     let id = e.target.id;
     let data = {...galleryData[id].recipe};
-    console.log(data);
+    setFocusItem({...focusItem, label: data.label});
   };
 
   const makeGallery = (
@@ -45,7 +53,10 @@ export function Gallery({items, apimethod}) {
   );
 
   const getGalleryData = (data) => {
-    apimethod(data).then((items) => setGalleryData(items));
+    apimethod(data).then((items) => {
+      setGalleryData(items);
+      setFocusItem({...focusItem, label: items[0].recipe.label});
+    });
   };
 
   const handleClick = (e) => {
@@ -62,7 +73,7 @@ export function Gallery({items, apimethod}) {
           key={item}
           type="button"
           onClick={handleClick}
-          className={baseCLs}
+          className={item === "All" ? focusCLS : baseCLs}
         >
           {item}
         </button>
@@ -75,7 +86,7 @@ export function Gallery({items, apimethod}) {
       {topbar}
       <div className="flex ">
         {makeGallery}
-        {focusElement}
+        <Recipe focusItem={focusItem} />
       </div>
     </section>
   );
