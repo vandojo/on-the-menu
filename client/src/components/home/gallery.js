@@ -6,10 +6,15 @@ export function Gallery({items, apimethod}) {
   const [galleryData, setGalleryData] = useState([]);
   const [focusItem, setFocusItem] = useState({
     label: "",
+    img: "",
+    source: "",
+    ingredients: "",
+    url: "",
+    uri: "",
   });
 
   useEffect(() => {
-    getGalleryData("All");
+    getGalleryData(items[0]);
   }, []);
 
   const baseCLs =
@@ -31,7 +36,16 @@ export function Gallery({items, apimethod}) {
   const recipeData = (e) => {
     let id = e.target.id;
     let data = {...galleryData[id].recipe};
-    setFocusItem({...focusItem, label: data.label});
+    setFocusItem({
+      ...focusItem,
+      label: data.label,
+      img: data.images.THUMBNAIL.url,
+      source: data.source,
+      url: data.url,
+      uri: data.uri,
+      ingredients: data.ingredients,
+    });
+    console.log(data);
   };
 
   const makeGallery = (
@@ -55,7 +69,15 @@ export function Gallery({items, apimethod}) {
   const getGalleryData = (data) => {
     apimethod(data).then((items) => {
       setGalleryData(items);
-      setFocusItem({...focusItem, label: items[0].recipe.label});
+      setFocusItem({
+        ...focusItem,
+        label: items[0].recipe.label,
+        img: items[0].recipe.images.THUMBNAIL.url,
+        source: items[0].recipe.source,
+        url: items[0].recipe.url,
+        uri: items[0].recipe.uri,
+        ingredients: items[0].recipe.ingredients,
+      });
     });
   };
 
@@ -73,7 +95,7 @@ export function Gallery({items, apimethod}) {
           key={item}
           type="button"
           onClick={handleClick}
-          className={item === "All" ? focusCLS : baseCLs}
+          className={item === items[0] ? focusCLS : baseCLs}
         >
           {item}
         </button>
