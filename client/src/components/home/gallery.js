@@ -27,12 +27,6 @@ export function Gallery({items, apimethod}) {
     e.target.className = focusCLS;
   };
 
-  // const focusElement = (
-  //   <div className="w-2/5  mr-20 border border-red-400">
-  //     {focusItem ? focusItem : ""}
-  //   </div>
-  // );
-
   const recipeData = (e) => {
     let id = e.target.id;
     let data = {...galleryData[id].recipe};
@@ -106,7 +100,7 @@ export function Gallery({items, apimethod}) {
   return (
     <section className="bg-gray-900   ">
       {topbar}
-      <div className="flex ">
+      <div className="grid md:flex gap-4 grid-cols-1 md:grid-cols-2">
         {makeGallery}
         <Recipe focusItem={focusItem} />
       </div>
