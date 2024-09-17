@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 
 import {Recipe} from "./recipe";
 
+import {Topbar} from "./topbar";
+
 export function Gallery({items, apimethod}) {
   const [galleryData, setGalleryData] = useState([]);
   const [focusItem, setFocusItem] = useState({
@@ -99,7 +101,8 @@ export function Gallery({items, apimethod}) {
 
   return (
     <section className="bg-gray-900   ">
-      {topbar}
+      {/* {topbar} */}
+      <Topbar items={items} handleclick={handleClick} />
       <div className="grid md:flex gap-4 grid-cols-1 md:grid-cols-2">
         {makeGallery}
         <Recipe focusItem={focusItem} />
