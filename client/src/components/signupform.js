@@ -100,7 +100,7 @@ export function SignUpForm({login_page_route}) {
                 href={login_page_route}
                 className="font-medium text-sm  hover:underline text-fuchsia-500"
               >
-                Already have an account? Sign up
+                Already have an account? Log in to your account
               </a>
             </form>
           </div>
