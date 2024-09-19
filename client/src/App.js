@@ -1,18 +1,20 @@
 import {Navbar} from "./components/navbar/nav";
 import {Form} from "./components/form/recipeform";
 import {Gallery} from "./components/home/gallery";
+import {RandomRecipe} from "./components/randomrecipe";
 //import {RecipeOverview} from "./components/overview";
 
 import {LoginForm} from "./components/loginform";
 import {SignUpForm} from "./components/signupform";
 
 import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
-
+import {useState} from "react";
 import RecipesAPI from "./api/recipes";
 
 import "./App.css";
 
 function App() {
+  const [galleryData, setGalleryData] = useState([]);
   const navbar_menu_elements = [
     {name: "Home", link: "/"},
     {name: "Random", link: "/random"},
@@ -23,7 +25,11 @@ function App() {
   const mealTypes = ["All", "Breakfast", "Lunch", "Snack", "Dinner"];
 
   const searchRecipes = (data) => {
-    RecipesAPI.searchRecipes(data).then((response) => console.log(response));
+    let results = RecipesAPI.searchRecipes(data).then((response) => {
+      return response.message;
+    });
+
+    return results;
 
     //
   };
@@ -51,9 +57,36 @@ function App() {
           >
             <Route
               path="random"
-              element={<Gallery items={mealTypes} apimethod={fetchRandom} />}
+              element={
+                <RandomRecipe
+                  items={mealTypes}
+                  apimethod={fetchRandom}
+                  topbar="true"
+                  gallerydata={galleryData}
+                  setgallerydata={setGalleryData}
+                />
+
+                // <Gallery
+                //   items={mealTypes}
+                //   apimethod={fetchRandom}
+                //   topbar="true"
+                //   gallerydata={galleryData}
+                //   setgallerydata={setGalleryData}
+                // />
+              }
             />
-            <Route index element={<Form searchrecipes={searchRecipes} />} />
+            <Route
+              index
+              element={
+                <Form
+                  searchrecipes={searchRecipes}
+                  apimethod={fetchRandom}
+                  items={mealTypes}
+                  gallerydata={galleryData}
+                  setgallerydata={setGalleryData}
+                />
+              }
+            />
             <Route
               path="login"
               element={<LoginForm register_page_route={"/register"} />}

@@ -2,7 +2,15 @@ import {Dropdowns} from "./dropdowns";
 import {SubmitButton} from "./submitbutton";
 import {InputBar} from "./inputbar";
 
-export function Form({searchrecipes}) {
+import {Gallery} from "../home/gallery";
+
+export function Form({
+  searchrecipes,
+  apimethod,
+  items,
+  gallerydata,
+  setgallerydata,
+}) {
   const selectItems = [
     {
       items: ["Breakfast", "Lunch", "Dinner", "Snack"],
@@ -80,16 +88,15 @@ export function Form({searchrecipes}) {
       ([key, val]) => val !== ""
     );
     const data = Object.fromEntries(filteredData);
-    //console.log(data);
 
-    searchrecipes(data);
+    searchrecipes(data).then((items) => setgallerydata(items));
   };
   return (
     <section className="bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="flex flex-col md:grid-cols-2 gap-4 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div
-          className="w-full rounded-lg shadow border md:mt-0   xl:p-0
-        bg-gray-800 border-gray-700
+          className="w-full md:w-1/2 rounded-lg shadow border md:mt-0   xl:p-0
+        bg-gray-800 border-fuchsia-400
         "
         >
           <div className="p-6 space-y-4 md:space-y-6  sm:p-8">
@@ -114,7 +121,15 @@ export function Form({searchrecipes}) {
             </form>
           </div>
         </div>
+        <h1 className="text-white text-6xl font-bold">Results Below!</h1>
       </div>
+
+      <Gallery
+        items={items}
+        apimethod={apimethod}
+        gallerydata={gallerydata}
+        setgallerydata={setgallerydata}
+      />
     </section>
   );
 }

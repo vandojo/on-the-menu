@@ -1,10 +1,26 @@
 import {useEffect, useState} from "react";
 
 export function Recipe({focusItem}) {
+  const link = (
+    <p className="mb-3">
+      Click{" "}
+      <a
+        href={focusItem.url === "" ? "" : focusItem.url}
+        target="_blank"
+        rel="noreferrer noopener"
+        className="text-fuchsia-400 hover:text-fuchsia-800"
+      >
+        "here"
+      </a>{" "}
+      for the full recipe!
+    </p>
+  );
   const focusElement = (
-    <div className="w-full h-full md:w-2/5 md:h-1/2 grid grid-rows-3 place-items-center  mr-20 border border-fuchsia-400 bg-gray-800  shadow rounded-md text-white">
+    <div className="w-full h-full md:w-2/5 md:h-3/4 grid grid-rows-3 place-items-center  mr-20 border border-fuchsia-400 bg-gray-800  shadow rounded-md text-white">
       <h1 className="mb-2 text-2xl font-bold tracking-tight">
-        Ingredients for: {focusItem.label === "" ? "" : focusItem.label}
+        {focusItem.label === ""
+          ? "Search for a recipe"
+          : "Ingredients for: " + focusItem.label}
       </h1>
       <div>
         <img
@@ -28,18 +44,7 @@ export function Recipe({focusItem}) {
           </ul>
         </div>
       </div>
-      <p className="mb-3">
-        Click{" "}
-        <a
-          href={focusItem.url === "" ? "" : focusItem.url}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="text-fuchsia-400 hover:text-fuchsia-800"
-        >
-          here
-        </a>{" "}
-        for the full recipe!
-      </p>
+      {focusItem.url === "" ? <p className="mb-3"> </p> : link}
     </div>
   );
 

@@ -4,8 +4,13 @@ import {Recipe} from "./recipe";
 
 import {Topbar} from "./topbar";
 
-export function Gallery({items, apimethod}) {
-  const [galleryData, setGalleryData] = useState([]);
+export function Gallery({
+  items,
+  apimethod,
+  gallerydata,
+  setgallerydata,
+  topbar = "",
+}) {
   const [focusItem, setFocusItem] = useState({
     label: "",
     img: "",
@@ -19,19 +24,9 @@ export function Gallery({items, apimethod}) {
     getGalleryData(items[0]);
   }, []);
 
-  const baseCLs =
-    "text-white border hover:text-fuchsia-400 border-gray-900 bg-gray-900 hover:border-fuchsia-400  focus:ring-2 focus:outline-none rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3  focus:ring-fuchsia-500";
-  const focusCLS =
-    "text-fuchsia-400 hover:text-white border border-fuchsia-400 bg-gray-900 hover:bg-fuchsia-400 focus:ring-2 focus:outline-none focus:ring-fuchsia-400 rounded-full text-base px-5 py-2.5 text-center me-3 mb-3";
-  const toggleClass = (e) => {
-    items.map((item) => (document.getElementById(item).className = baseCLs));
-
-    e.target.className = focusCLS;
-  };
-
   const recipeData = (e) => {
     let id = e.target.id;
-    let data = {...galleryData[id].recipe};
+    let data = {...gallerydata[id].recipe};
     setFocusItem({
       ...focusItem,
       label: data.label,
@@ -46,7 +41,7 @@ export function Gallery({items, apimethod}) {
 
   const makeGallery = (
     <div className="grid ml-20 mr-20  grid-cols-2 md:grid-cols-4 gap-4 w-3/5">
-      {galleryData.map((item, index) => {
+      {gallerydata.map((item, index) => {
         return (
           <div key={index} className="justify-center flex  ">
             <img
@@ -64,7 +59,7 @@ export function Gallery({items, apimethod}) {
 
   const getGalleryData = (data) => {
     apimethod(data).then((items) => {
-      setGalleryData(items);
+      setgallerydata(items);
       setFocusItem({
         ...focusItem,
         label: items[0].recipe.label,
@@ -78,31 +73,14 @@ export function Gallery({items, apimethod}) {
   };
 
   const handleClick = (e) => {
-    toggleClass(e);
     let val = e.target.id;
     getGalleryData(val);
   };
 
-  const topbar = (
-    <div className="flex items-center justify-center py-4 md:py-8 flex-wrap ">
-      {items.map((item) => (
-        <button
-          id={item}
-          key={item}
-          type="button"
-          onClick={handleClick}
-          className={item === items[0] ? focusCLS : baseCLs}
-        >
-          {item}
-        </button>
-      ))}
-    </div>
-  );
-
   return (
     <section className="bg-gray-900   ">
-      {/* {topbar} */}
-      <Topbar items={items} handleclick={handleClick} />
+      {topbar === "" ? "" : <Topbar items={items} handleclick={handleClick} />}
+
       <div className="grid md:flex gap-4 grid-cols-1 md:grid-cols-2">
         {makeGallery}
         <Recipe focusItem={focusItem} />
