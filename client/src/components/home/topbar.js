@@ -7,6 +7,7 @@ export function Topbar({items, handleclick}) {
     items.map((item) => (document.getElementById(item).className = baseCLs));
 
     e.target.className = focusCLS;
+    handleclick(e);
   };
   const topbar = (
     <div className="flex items-center justify-center py-4 md:py-8 flex-wrap ">
@@ -15,7 +16,7 @@ export function Topbar({items, handleclick}) {
           id={item}
           key={item}
           type="button"
-          onClick={handleclick}
+          onClick={toggleClass}
           className={item === items[0] ? focusCLS : baseCLs}
         >
           {item}
