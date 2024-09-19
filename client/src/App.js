@@ -15,7 +15,7 @@ import "./App.css";
 function App() {
   const navbar_menu_elements = [
     {name: "Home", link: "/"},
-    {name: "Search", link: "/search"},
+    {name: "Random", link: "/random"},
     {name: "Login", link: "/login"},
     {name: "Sign Up", link: "/register"},
   ];
@@ -50,13 +50,10 @@ function App() {
             }
           >
             <Route
-              index
+              path="random"
               element={<Gallery items={mealTypes} apimethod={fetchRandom} />}
             />
-            <Route
-              path="search"
-              element={<Form searchrecipes={searchRecipes} />}
-            />
+            <Route index element={<Form searchrecipes={searchRecipes} />} />
             <Route
               path="login"
               element={<LoginForm register_page_route={"/register"} />}
