@@ -10,7 +10,7 @@ export function Recipe({focusItem}) {
         rel="noreferrer noopener"
         className="text-fuchsia-400 hover:text-fuchsia-800"
       >
-        "here"
+        here
       </a>{" "}
       for the full recipe!
     </p>
@@ -36,7 +36,7 @@ export function Recipe({focusItem}) {
               ? ""
               : focusItem.ingredients.map((item, index) => {
                   return (
-                    <li className=" text-start" id={index}>
+                    <li className=" text-start" key={index} id={index}>
                       {item.text}
                     </li>
                   );
