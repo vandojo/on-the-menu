@@ -13,11 +13,11 @@ This is a recipe web application. The Edamam API is used to retrieve recipe and 
    - APP_EDAMAM_KEYS <your personal edamam key, also for the api>
 
 3. The Node server is started by running the following command in a terminal:
-   `npm start`
+   `$ npm start`
 
 4. The React client is started by running the following commands in a terminal:
-   `cd client `
-   `npm start`
+   `$ cd client`
+   `$ npm start`
 
 ### Next steps:
 
