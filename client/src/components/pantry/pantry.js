@@ -17,7 +17,7 @@ export function Pantry() {
   ]);
 
   return (
-    <div className="grid ml-20 mr-20  grid-cols-2 md:grid-cols-4 gap-4 ">
+    <div className="bg-gray-900 grid ml-20 mr-20  grid-cols-2 md:grid-cols-4 gap-4 ">
       {pantryItems.map((item, key) => (
         <PantryRecipe key={key} item={item} id={key} />
       ))}

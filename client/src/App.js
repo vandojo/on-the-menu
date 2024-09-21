@@ -4,6 +4,8 @@ import {Gallery} from "./components/home/gallery";
 import {RandomRecipe} from "./components/randomrecipe";
 //import {RecipeOverview} from "./components/overview";
 
+import {Pantry} from "./components/pantry/pantry";
+
 import {LoginForm} from "./components/loginform";
 import {SignUpForm} from "./components/signupform";
 
@@ -18,6 +20,7 @@ function App() {
   const navbar_menu_elements = [
     {name: "Home", link: "/"},
     {name: "Random", link: "/random"},
+    //{name: "Pantry", link: "/pantry"},
     {name: "Login", link: "/login"},
     {name: "Sign Up", link: "/register"},
   ];
@@ -43,7 +46,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App bg-gray-950">
       <BrowserRouter>
         <Routes>
           <Route
@@ -87,6 +90,7 @@ function App() {
                 />
               }
             />
+            <Route path="pantry" element={<Pantry />} />
             <Route
               path="login"
               element={<LoginForm register_page_route={"/register"} />}
