@@ -51,6 +51,38 @@ app.post("/search_recipes", async (req, res) => {
 
 dbConnect();
 
+app.post("/register", (req, res) => {
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((pw) => {
+      const user = new user({
+        email: req.body.email,
+        password: pw,
+      });
+
+      user
+        .save()
+        .then((result) => {
+          res.status(201).send({
+            message: "user created",
+            result,
+          });
+        })
+        .catch((error) => {
+          res.status(500).send({
+            message: "error creating user",
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      response.status(500).send({
+        message: "password not hashed successfully",
+        error,
+      });
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`server listening on ${PORT}`);
 });
