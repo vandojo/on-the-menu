@@ -1,8 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const dbConnect = require("./database/dbConnect");
+const user = require("./database/userModel");
 
 //dbConnect();
 
@@ -46,6 +48,8 @@ app.post("/search_recipes", async (req, res) => {
     res.json({message: data.hits});
   });
 });
+
+dbConnect();
 
 app.listen(PORT, () => {
   console.log(`server listening on ${PORT}`);
