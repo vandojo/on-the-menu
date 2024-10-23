@@ -7,6 +7,8 @@ require("dotenv").config();
 const dbConnect = require("./database/dbConnect");
 const User = require("./database/userModel");
 
+const authentication = require("./auth/authentication");
+
 dbConnect();
 
 const {Edamam} = require("./edamam");
@@ -50,84 +52,20 @@ app.post("/search_recipes", async (req, res) => {
   });
 });
 
-app.post("/register", (req, res) => {
-  // hash the password
-  bcrypt
-    .hash(req.body.password, 10)
-    .then((hashedPassword) => {
-      // create a new user instance and collect the data
-      const user = new User({
-        email: req.body.email,
-        password: hashedPassword,
-      });
+app.get("/free-endpoint", (req, res) => {
+  res.json({message: "Access granted"});
+});
 
-      // save the new user
-      user
-        .save()
-        // return success if the new user is added to the database successfully
-        .then((result) => {
-          res.status(201).send({
-            message: "User Created Successfully",
-            result,
-          });
-        })
-        // catch error if the new user wasn't added successfully to the database
-        .catch((error) => {
-          res.status(500).send({
-            message: "The following error occurred:",
-            error,
-          });
-        });
-    })
-    // catch error if the password hash isn't successful
-    .catch((e) => {
-      res.status(500).send({
-        message: "Password was not hashed successfully",
-        e,
-      });
-    });
+app.get("/auth-endpoint", authentication.isLoggedIn, (req, res) => {
+  res.json({message: "you need authorization"});
+});
+
+app.post("/register", (req, res) => {
+  authentication.register(req, res);
 });
 
 app.post("/login", (req, res) => {
-  User.findOne({email: req.body.email})
-    .then((user) => {
-      bcrypt
-        .compare(req.body.password, user.password)
-        .then((pwCheck) => {
-          if (!pwCheck) {
-            return res.status(400).send({
-              message: "The password is incorrect",
-              error,
-            });
-          }
-          const token = jwt.sign(
-            {
-              userId: user._id,
-              userEmail: user.email,
-            },
-            "RANDOM-TOKEN",
-            {expiresIn: "24h"}
-          );
-
-          res.status(200).send({
-            message: "Login Succesful",
-            email: user.email,
-            token,
-          });
-        })
-        .catch((error) => {
-          res.status(400).send({
-            message: "The password is incorrect.",
-            error,
-          });
-        });
-    })
-    .catch((e) => {
-      res.status(404).send({
-        message: "No account with that email exists.",
-        e,
-      });
-    });
+  authentication.login(req, res);
 });
 
 app.listen(PORT, () => {
