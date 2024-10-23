@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const dbConnect = require("./database/dbConnect");
-const user = require("./database/userModel");
+const User = require("./database/userModel");
 
-//dbConnect();
+dbConnect();
 
 const {Edamam} = require("./edamam");
 
@@ -49,36 +49,40 @@ app.post("/search_recipes", async (req, res) => {
   });
 });
 
-dbConnect();
-
 app.post("/register", (req, res) => {
+  // hash the password
   bcrypt
     .hash(req.body.password, 10)
-    .then((pw) => {
-      const user = new user({
+    .then((hashedPassword) => {
+      // create a new user instance and collect the data
+      const user = new User({
         email: req.body.email,
-        password: pw,
+        password: hashedPassword,
       });
 
+      // save the new user
       user
         .save()
+        // return success if the new user is added to the database successfully
         .then((result) => {
           res.status(201).send({
-            message: "user created",
+            message: "User Created Successfully",
             result,
           });
         })
+        // catch error if the new user wasn't added successfully to the database
         .catch((error) => {
           res.status(500).send({
-            message: "error creating user",
+            message: "The following error occurred:",
             error,
           });
         });
     })
-    .catch((error) => {
-      response.status(500).send({
-        message: "password not hashed successfully",
-        error,
+    // catch error if the password hash isn't successful
+    .catch((e) => {
+      res.status(500).send({
+        message: "Password was not hashed successfully",
+        e,
       });
     });
 });
