@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const dbConnect = require("./database/dbConnect");
@@ -82,6 +83,48 @@ app.post("/register", (req, res) => {
     .catch((e) => {
       res.status(500).send({
         message: "Password was not hashed successfully",
+        e,
+      });
+    });
+});
+
+app.post("/login", (req, res) => {
+  User.findOne({email: req.body.email})
+    .then((user) => {
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then((pwCheck) => {
+          if (!pwCheck) {
+            return res.status(400).send({
+              message: "The password is incorrect",
+              error,
+            });
+          }
+          const token = jwt.sign(
+            {
+              userId: user._id,
+              userEmail: user.email,
+            },
+            "RANDOM-TOKEN",
+            {expiresIn: "24h"}
+          );
+
+          res.status(200).send({
+            message: "Login Succesful",
+            email: user.email,
+            token,
+          });
+        })
+        .catch((error) => {
+          res.status(400).send({
+            message: "The password is incorrect.",
+            error,
+          });
+        });
+    })
+    .catch((e) => {
+      res.status(404).send({
+        message: "No account with that email exists.",
         e,
       });
     });
