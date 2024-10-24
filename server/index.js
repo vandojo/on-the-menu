@@ -43,6 +43,8 @@ app.get("/api", async (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {});
+
 app.post("/search_recipes", async (req, res) => {
   let params = req.body;
 

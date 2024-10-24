@@ -1,4 +1,13 @@
+import AuthenticationAPI from "../api/authentication";
 export function SignUpForm({login_page_route}) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const formVals = Object.fromEntries(formData);
+
+    console.log(AuthenticationAPI.registerUser(formVals));
+  };
   return (
     <section className="gray-50 bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -14,7 +23,12 @@ export function SignUpForm({login_page_route}) {
               Create an account
             </h1>
 
-            <form action="#" className="space-y-4 md:space-y-6 ">
+            <form
+              action="/register"
+              method="post"
+              className="space-y-4 md:space-y-6 "
+              onSubmit={handleSubmit}
+            >
               <div className="text-left">
                 <label
                   htmlFor="email"
