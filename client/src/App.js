@@ -46,7 +46,7 @@ function App() {
   };
 
   return (
-    <div className="App bg-gray-950">
+    <div className="App bg-gray-900">
       <BrowserRouter>
         <Routes>
           <Route

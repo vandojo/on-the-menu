@@ -82,8 +82,8 @@ export function Gallery({
       {topbar === "" ? "" : <Topbar items={items} handleclick={handleClick} />}
 
       <div className="grid md:flex gap-4 grid-cols-1 md:grid-cols-2">
-        {makeGallery}
         <Recipe focusItem={focusItem} />
+        {makeGallery}
       </div>
     </section>
   );

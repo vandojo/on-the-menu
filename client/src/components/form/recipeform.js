@@ -92,8 +92,8 @@ export function Form({
     searchrecipes(data).then((items) => setgallerydata(items));
   };
   return (
-    <section className="bg-gray-900">
-      <div className="flex flex-col md:grid-cols-2 gap-4 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section className="bg-gray-900 ">
+      <div className="flex flex-col grid-cols-2 gap-4 items-center justify-left my-6 mx-auto ml-5 mr-5  lg:py-0">
         <div
           className="w-full md:w-1/2 rounded-lg shadow border md:mt-0   xl:p-0
         bg-gray-800 border-fuchsia-400
@@ -121,9 +121,9 @@ export function Form({
             </form>
           </div>
         </div>
-        <h1 className="text-white text-6xl font-bold">Results Below!</h1>
-      </div>
 
+        {/* <h1 className="text-white text-6xl font-bold">Results Below!</h1> */}
+      </div>
       <Gallery
         items={items}
         apimethod={apimethod}
