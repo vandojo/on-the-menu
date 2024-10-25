@@ -22,25 +22,33 @@ export function Recipe({focusItem}) {
 
   const focusElement = (
     <div className="md:w-2/5 md:h-3/4 grid grid-rows-3 place-items-center ml-5  mr-5 border border-fuchsia-400 bg-gray-800  shadow rounded-md text-white">
-      <h1 className="mb-2 text-2xl font-bold tracking-tight">
+      <h1 className=" text-2xl font-bold tracking-tight">
         {focusItem.label === "" ? "Search for a recipe" : focusItem.label}
       </h1>
-      <div className="grid grid-cols-2">
+      <div className=" ">
         <img
           alt={focusItem.label}
           className=" rounded-lg"
           src={focusItem.img}
         ></img>
-        {isFavourite ? (
-          <FaStar color="yellow" />
-        ) : (
-          <CiStar color="yellow" size={"2em"} />
-        )}
       </div>
-      <div className="grid  content-start justify-start border border-dashed border-fuchsia-400 rounded">
-        <div>
-          <p>Ingredients: {focusItem.label}</p>
+      <div className="grid  content-start justify-start ">
+        <div className="flex justify-start gap-2">
+          <p className="">Save recipe:</p>
+          <button
+            className=""
+            onClick={() => {
+              setIsFavourite(!isFavourite);
+            }}
+          >
+            {isFavourite ? (
+              <FaStar color="yellow" size={"1.5em"} />
+            ) : (
+              <CiStar color="yellow" size={"1.5em"} />
+            )}
+          </button>
         </div>
+
         <div className=" flex items-center justify-start   px-4 py-2">
           <ul className="list-inside list-disc justify-start  ">
             {focusItem.ingredients === ""
