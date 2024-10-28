@@ -1,14 +1,27 @@
 import AuthenticationAPI from "../../api/authentication";
 
+import {useState} from "react";
+import {Navigate} from "react-router-dom";
+
 export function LoginForm({register_page_route}) {
+  const [navigate, setNavigate] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formVals = Object.fromEntries(formData);
 
-    console.log(AuthenticationAPI.loginUser(formVals));
-  };
+    AuthenticationAPI.loginUser(formVals).then((result) => {
+      setNavigate(true);
 
+      localStorage.setItem("userName", result.email);
+      localStorage.setItem("accessToken", result.token);
+      localStorage.setItem("refreshToken", result.token);
+    });
+  };
+  if (navigate) {
+    return <Navigate to="/" />;
+  }
   return (
     <section className="gray-50 bg-gray-900">
       <div className="flex flex-col items-center jusitfy-center px-6 py-8 mx-auto md:h-screen lg:py-0">

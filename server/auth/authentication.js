@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../database/userModel");
+require("dotenv").config();
+
+const secret_key = process.env.LOGIN_SECRET_KEY;
 
 const register = (req, res) => {
   // hash the password
@@ -57,7 +60,7 @@ const login = (req, res) => {
               userId: user._id,
               userEmail: user.email,
             },
-            "RANDOM-TOKEN",
+            secret_key,
             {expiresIn: "24h"}
           );
 
@@ -85,7 +88,7 @@ const login = (req, res) => {
 const isLoggedIn = async (req, res, next) => {
   try {
     const token = await req.headers.authorization.split(" ")[1];
-    const decodedToken = await jwt.verify(token, "RANDOM-TOKEN");
+    const decodedToken = await jwt.verify(token, secret_key);
     const user = await decodedToken;
     req.user = user;
     next();
