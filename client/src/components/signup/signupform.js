@@ -1,5 +1,5 @@
 import {useState} from "react";
-import AuthenticationAPI from "../api/authentication";
+import AuthenticationAPI from "../../api/authentication";
 export function SignUpForm({login_page_route}) {
   const [formSuccess, setFormSuccess] = useState("");
 

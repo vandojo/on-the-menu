@@ -1,4 +1,4 @@
-import AuthenticationAPI from "../api/authentication";
+import AuthenticationAPI from "../../api/authentication";
 
 export function LoginForm({register_page_route}) {
   const handleSubmit = (e) => {

@@ -1,13 +1,13 @@
 import {Navbar} from "./components/navbar/nav";
 import {Form} from "./components/form/recipeform";
-import {Gallery} from "./components/home/gallery";
+//import {Gallery} from "./components/home/gallery";
 import {RandomRecipe} from "./components/randomrecipe";
 //import {RecipeOverview} from "./components/overview";
 
 import {Pantry} from "./components/pantry/pantry";
 
-import {LoginForm} from "./components/loginform";
-import {SignUpForm} from "./components/signupform";
+import {LoginForm} from "./components/login/loginform";
+import {SignUpForm} from "./components/signup/signupform";
 
 import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
 import {useState} from "react";
